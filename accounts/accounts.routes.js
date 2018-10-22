@@ -4,6 +4,6 @@ const accountsController = require('./accounts.controller');
 let router = express.Router();
 
 // RETRIEVES all accounts
-router.get('/accounts', accountsController.getAllAccounts);
+router.get('/all', accountsController.getAllAccounts);
 
 module.exports = router;

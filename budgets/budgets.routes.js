@@ -4,4 +4,6 @@ const budgetsController = require('./budgets.controller');
 let router = express.Router();
 
 // RETRIEVES all budget categories
-router.get('/budgets', budgetsController.getAllBudgets);
+router.get('/all', budgetsController.getAllBudgets);
+
+module.exports = router;

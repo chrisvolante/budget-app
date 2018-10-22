@@ -3,20 +3,24 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const transactionRoutes = require('./transactions/transactions.routes');
+const accountsRoutes = require('./accounts/accounts.routes');
+const budgetsRoutes = require('./budgets/budgets.routes');
 
 let app = express();
 
-//Telling the app that it will accept and send JSON data.
+// Telling the app that it will accept and send JSON data.
 app.use(bodyParser.json());
 
-//Will log common elements in HTTP requests.
+// Will log common elements in HTTP requests.
 app.use(morgan('common'));
 
-//To Do Config Routes
+// To Do Config Routes
 app.use('/transactions', transactionRoutes);
+app.use('/accounts', accountsRoutes);
+app.use('/budgets', budgetsRoutes);
 
 
-//To Do configFile
+// To Do configFile
 
 const databaseUrl = 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database';
 const port = 8080;
