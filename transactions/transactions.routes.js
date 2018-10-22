@@ -3,7 +3,7 @@ const transactionsController = require('./transactions.controller');
 
 let router = express.Router();
 
-//GETS all transactions
+// RETRIEVES all transactions
 router.get('/all', transactionsController.getAllTransactions);
 
 module.exports = router;
