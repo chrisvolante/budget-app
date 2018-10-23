@@ -29,18 +29,6 @@ exports.createNewTransaction = (request, response) => {
 
 // RETRIEVES all transactions.
 exports.getAllTransactions = (request, response) => {
-    // transactionsModel.find({}, (err, transactions) => {
-    //     if(err) {
-    //         res.status(500).json({
-    //             msg: "Something happened."
-    //         })
-    //         return;
-    //     };
-    //     res.status(200).json({
-    //         msg: "All transactions here.",
-    //         data: transactions
-    //     });
-    // });
     Transaction.find()
         .then(transactions => {
             return response.status(HTTP_STATUS_CODES.OK).json(

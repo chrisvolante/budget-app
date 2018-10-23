@@ -27,9 +27,10 @@ transactionsSchema.methods.serialize = function() {
     };
 };
 
+// Define validation schema using Joi.
 const TransactionJoiSchema = Joi.object().keys({
     payee: Joi.string().min(1).required(),
-    amount: Joi.number().min(1).required(),
+    amount: Joi.number().required(),
     budgetsCategory: Joi.string().min(1).required(),
     accountsName: Joi.string().min(1).required(),
     createDate: Joi.date().timestamp()
