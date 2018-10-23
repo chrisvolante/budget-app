@@ -7,11 +7,11 @@ let router = express.Router();
 router.post('/', budgetsController.createNewBudget);
 // RETRIEVES all budgets
 router.get('/all', budgetsController.getAllBudgets);
-// // RETRIEVES budget by ID
-// router.get('/:budgetid', budgetsController.getBudgetById);
-// // UPDATES budget by ID
-// router.put('/:budget', budgetsController.updateBudgetById);
-// // DELETES budget by ID
-// router.delete('/:budgetid', budgetsController.deleteBudgetById);
+// RETRIEVES budget by ID
+router.get('/:budgetid', budgetsController.getBudgetById);
+// UPDATES budget by ID
+router.put('/:budget', budgetsController.updateBudgetById);
+// DELETES budget by ID
+router.delete('/:budgetid', budgetsController.deleteBudgetById);
 
 module.exports = router;
