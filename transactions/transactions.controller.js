@@ -11,13 +11,13 @@ exports.createNewTransaction = (request, response) => {
         accountsName: request.body.accountsName,
         createDate: Date.now()
     };
-    // Step 1: Validate user's input is correct using Joi
+    // Step 1: Validate user's input is correct using Joi.
     const validation = Joi.validate(newTransaction, TransactionJoiSchema);
     if (validation.error) {
         return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: validation.error });
     };
 
-    // Step 2: Create new transaction
+    // Step 2: Create new transaction.
     Transaction.create(newTransaction)
         .then(createdTransaction => {
             return response.status(HTTP_STATUS_CODES.CREATED).json(createdTransaction.serialize());

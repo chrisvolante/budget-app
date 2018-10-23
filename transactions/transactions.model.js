@@ -13,7 +13,8 @@ const transactionsSchema = new mongoose.Schema({
     updateDate: { type: Date, default: Date.now }
 });
 
-// Define Mongoose instance method
+// Define Mongoose instance method.
+// Able to sanitize transactions object and not return sensitive information.
 transactionsSchema.methods.serialize = function() {
     return {
         id: this._id,

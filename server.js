@@ -6,7 +6,7 @@ const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
 
-const { PORT, HTTP_STATUS_CODES } = require('./config.js');
+const { PORT, MONGO_URL } = require('./config.js');
 
 let app = express();
 
@@ -21,19 +21,16 @@ app.use('/transactions', transactionRoutes);
 app.use('/accounts', accountsRoutes);
 app.use('/budgets', budgetsRoutes);
 
-const databaseUrl = 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database';
-const port = 8080;
-
 let server;
 
-function runServer(databaseUrl = DATABASE_URL, port = PORT) {
+function runServer(MONGO_URL, PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, { useNewUrlParser: true }, error => {
+    mongoose.connect(MONGO_URL, { useNewUrlParser: true }, error => {
       if (error) {
         return reject(error);
       }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
+      server = app.listen(PORT, () => {
+        console.log(`Your app is listening on port ${PORT}`);
         resolve();
       })
         .on('error', error => {
@@ -59,7 +56,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-  runServer(databaseUrl, port).catch(err => console.error(err));
+  runServer(MONGO_URL, PORT).catch(err => console.error(err));
 };
 
 

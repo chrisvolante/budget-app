@@ -9,5 +9,6 @@ module.exports = {
         UNAUTHORIZED: 401,
         NOT_FOUND: 404,
         INTERNAL_SERVER_ERROR: 500,
-    }
+    },
+    MONGO_URL: process.env.MONGO_URL || 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database'
 };
