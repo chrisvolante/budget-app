@@ -6,6 +6,8 @@ const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
 
+const { PORT, HTTP_STATUS_CODES } = require('./config');
+
 let app = express();
 
 // Telling the app that it will accept and send JSON data.
@@ -18,9 +20,6 @@ app.use(morgan('common'));
 app.use('/transactions', transactionRoutes);
 app.use('/accounts', accountsRoutes);
 app.use('/budgets', budgetsRoutes);
-
-
-// To Do configFile
 
 const databaseUrl = 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database';
 const port = 8080;
