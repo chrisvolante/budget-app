@@ -1,14 +1,15 @@
 const { Transaction, TransactionJoiSchema } = require('./transactions.model');
-const { HTTP_STATUS_CODES } = require('./config');
+const { HTTP_STATUS_CODES } = require('../config');
+const Joi = require('joi');
 
 // CREATES transaction.
 exports.createNewTransaction = (request, response) => {
     const newTransaction = {
-        payee = request.body.payee,
-        amount = request.body.amount,
-        budgetsCategory = request.body.budgetsCategory,
-        accountsName = request.body.accountsName,
-        createDate = request.body.createDate
+        payee: request.body.payee,
+        amount: request.body.amount,
+        budgetsCategory: request.body.budgetsCategory,
+        accountsName: request.body.accountsName,
+        createDate: request.body.createDate
     };
     // Step 1: Validate user's input is correct using Joi
     const validation = Joi.validate(newTransaction, TransactionJoiSchema);
@@ -65,11 +66,10 @@ exports.getTransactionById = (request, response) => {
 // UPDATES transaction by ID.
 exports.updateTransactionById = (request, response) => {
     const updatedTransaction = {
-        payee = request.body.payee,
-        amount = request.body.amount,
-        budgetsCategory = request.body.budgetsCategory,
-        accountsName = request.body.accountsName,
-        createDate = request.body.createDate
+        payee: request.body.payee,
+        amount: request.body.amount,
+        budgetsCategory: request.body.budgetsCategory,
+        accountsName: request.body.accountsName
     };
 
     // Step 1: Validate user's input is correct using Joi.

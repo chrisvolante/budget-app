@@ -6,7 +6,7 @@ const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
 
-const { PORT, HTTP_STATUS_CODES } = require('./config');
+const { PORT, HTTP_STATUS_CODES } = require('./config.js');
 
 let app = express();
 
