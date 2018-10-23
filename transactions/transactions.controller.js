@@ -9,7 +9,7 @@ exports.createNewTransaction = (request, response) => {
         amount: request.body.amount,
         budgetsCategory: request.body.budgetsCategory,
         accountsName: request.body.accountsName,
-        createDate: request.body.createDate
+        createDate: Date.now()
     };
     // Step 1: Validate user's input is correct using Joi
     const validation = Joi.validate(newTransaction, TransactionJoiSchema);

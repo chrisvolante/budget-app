@@ -9,7 +9,7 @@ const transactionsSchema = new mongoose.Schema({
     budgetsCategory: { type: String, required: true },
     // will have to be dynamic variable from accountsSchema
     accountsName: { type: String, required: true },
-    createDate: { type: Date, default: Date.now },
+    createDate: { type: Date },
     updateDate: { type: Date, default: Date.now }
 });
 
