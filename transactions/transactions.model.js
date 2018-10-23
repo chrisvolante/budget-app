@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
 
 // Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
 const transactionsSchema = new mongoose.Schema({
@@ -27,14 +26,5 @@ transactionsSchema.methods.serialize = function() {
     };
 };
 
-// Define validation schema using Joi.
-const TransactionJoiSchema = Joi.object().keys({
-    payee: Joi.string().min(1).required(),
-    amount: Joi.number().required(),
-    budgetsCategory: Joi.string().min(1).required(),
-    accountsName: Joi.string().min(1).required(),
-    createDate: Joi.date().timestamp()
-});
-
 const Transaction = mongoose.model('transactions', transactionsSchema);
-module.exports = { Transaction, TransactionJoiSchema };
+module.exports = { Transaction };

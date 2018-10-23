@@ -1,6 +1,5 @@
-const { Transaction, TransactionJoiSchema } = require('./transactions.model');
+const { Transaction } = require('./transactions.model');
 const { HTTP_STATUS_CODES } = require('../config');
-const Joi = require('joi');
 
 // CREATES transaction.
 exports.createNewTransaction = (request, response) => {
@@ -11,10 +10,13 @@ exports.createNewTransaction = (request, response) => {
         accountsName: request.body.accountsName,
         createDate: Date.now()
     };
-    // Step 1: Validate user's input is correct using Joi.
-    const validation = Joi.validate(newTransaction, TransactionJoiSchema);
-    if (validation.error) {
-        return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: validation.error });
+    // Step 1: Validate user's input is correct.
+    const requiredFields = ['payee', 'amount', 'budgetsCategory', 'accountsName'];
+    for (let i=0; i < requiredFields.length; i++) {
+        const field = requiredFields[i];
+        if (!(field in request.body)) {
+            return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: "Missing a field." });
+        }
     };
 
     // Step 2: Create new transaction.
@@ -60,16 +62,19 @@ exports.updateTransactionById = (request, response) => {
         accountsName: request.body.accountsName
     };
 
-    // Step 1: Validate user's input is correct using Joi.
-    const validation = Joi.validate(updatedTransaction, TransactionJoiSchema);
-    if (validation.error) {
-        return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: validation.error });
+    // Step 1: Validate user's input is correct.
+    const requiredFields = ['payee', 'amount', 'budgetsCategory', 'accountsName'];
+    for (let i=0; i < requiredFields.length; i++) {
+        const field = requiredFields[i];
+        if (!(field in request.body)) {
+            return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: "Missing a field" });
+        }
     };
 
     // Step 2: Finds transaction by ID and updates.
     Transaction.findByIdAndUpdate(request.params.transactionid, updatedTransaction)
         .then(() => {
-            // Since update was performed we end request with No Content status code
+            // Since update was performed we end request with No Content status code.
             return response.status(HTTP_STATUS_CODES.NO_CONTENT).end();
         })
         .catch(error => {
@@ -82,7 +87,7 @@ exports.deleteTransactionById = (request, response) => {
     // Step 1: Finds transaction by ID and removes.
     Transaction.findByIdAndDelete(request.params.transactionid)
         .then(() => {
-            // Since deletion was performed we end request with No Content status code
+            // Since deletion was performed we end request with No Content status code.
             return response.status(HTTP_STATUS_CODES.NO_CONTENT).end();
         })
         .catch(error => {
