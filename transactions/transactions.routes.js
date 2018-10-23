@@ -4,7 +4,7 @@ const transactionsController = require('./transactions.controller');
 let router = express.Router();
 
 // CREATES transaction
-router.post('/:transactionid', transactionsController.createNewTransaction);
+router.post('/', transactionsController.createNewTransaction);
 // RETRIEVES all transactions
 router.get('/all', transactionsController.getAllTransactions);
 // RETRIEVES transaction by ID
