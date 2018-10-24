@@ -6,4 +6,15 @@ const accountsSchema = new mongoose.Schema({
     balance: { type: Number, default: 0 }
 });
 
-module.exports = mongoose.model('accounts', accountsSchema);
+// Define mongoose instance method.
+// Able to sanitize accounts object and not return sensitive information.
+accountsSchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        name: this.name,
+        balance: this.balance
+    };
+;}
+
+const Account = mongoose.model('accounts', accountsSchema);
+module.exports = { Account }

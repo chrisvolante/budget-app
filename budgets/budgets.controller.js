@@ -8,13 +8,14 @@ exports.createNewBudget = (request, response) => {
         amount: request.body.amount,
         date: Date.now()
     };
+    
     // Step 1: Validate user's input is correct.
     const requiredFields = ['category', 'amount'];
     for (let i=0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in request.body)) {
             return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: "Missing a field." });
-        }
+        };
     };
 
     // Step 2: Create new budget.

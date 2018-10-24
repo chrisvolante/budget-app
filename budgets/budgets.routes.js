@@ -3,15 +3,15 @@ const budgetsController = require('./budgets.controller');
 
 let router = express.Router();
 
-// CREATES budget
+// CREATES budget.
 router.post('/', budgetsController.createNewBudget);
-// RETRIEVES all budgets
+// RETRIEVES all budgets.
 router.get('/all', budgetsController.getAllBudgets);
-// RETRIEVES budget by ID
+// RETRIEVES budget by ID.
 router.get('/:budgetid', budgetsController.getBudgetById);
-// UPDATES budget by ID
+// UPDATES budget by ID.
 router.put('/:budget', budgetsController.updateBudgetById);
-// DELETES budget by ID
+// DELETES budget by ID.
 router.delete('/:budgetid', budgetsController.deleteBudgetById);
 
 module.exports = router;
