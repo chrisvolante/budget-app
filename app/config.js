@@ -10,5 +10,8 @@ module.exports = {
         NOT_FOUND: 404,
         INTERNAL_SERVER_ERROR: 500,
     },
-    MONGO_URL: process.env.MONGO_URL || 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database'
+    MONGO_URL: process.env.MONGO_URL || 'mongodb://admin:password1@ds137003.mlab.com:37003/budget-app-database',
+    TEST_MONGO_URL: process.env.TEST_MONGO_URL || 'mongodb://admin:password1@ds137003.mlab.com:37003/test-budget-app-database',
+    JWT_SECRET: process.env.JWT_SECRET || 'default',
+    JWT_EXPIRY: process.env.JWT_EXPIRY || '7d'
 };

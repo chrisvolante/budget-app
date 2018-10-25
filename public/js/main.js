@@ -1,16 +1,15 @@
-// Renders the transaction to the DOM.
+// Renders the transaction data to the DOM.
 function renderTransaction(transaction) {
     return (`
-            <tr>
-                <td>${transaction.createDate}</td>
-                <td>${transaction.budgetsCategory}</td>
-                <td>${transaction.payee}</td>
-                <td>${transaction.amount}</td>
-                <td>${transaction.accountsName}</td>
-                <td><button class="btn-update" data-id="${transaction.id}">Update</button></td>
-                <td><button class="btn-delete" data-id="${transaction.id}">Delete</button></td>
-            </tr>
-        </table>
+        <tr>
+            <td>${transaction.createDate}</td>
+            <td>${transaction.budgetsCategory}</td>
+            <td>${transaction.payee}</td>
+            <td>$${transaction.amount}</td>
+            <td>${transaction.accountsName}</td>
+            <td><button id="button-update" class="button-update" data-id="${transaction.id}">Update</button></td>
+            <td><button class="button-delete" data-id="${transaction.id}">Delete</button></td>
+        </tr>
     `);
 };
 
@@ -19,6 +18,7 @@ $.ajax({
     url: "/transactions/all",
     type: "GET",
     success: function (response) {
+        // Table headers for Transactions.
         let tableTemplateString =
             `<div class="transaction">
                 <table>
@@ -28,19 +28,23 @@ $.ajax({
                         <th>Payee</th>
                         <th>Amount</th>
                         <th>Account</th>
-                        <th>Update</th>
-                        <th>Delete</th>
+                        <th></th>
+                        <th></th>
                     </tr>
             `;
+        // Adds data from transactions object into the tableTemplateString.
         for (let i = 0; i < response.length; i++) {
             tableTemplateString += renderTransaction(response[i]);
         };
-        $(".transactions-list").append(tableTemplateString);
+        // Populates table with transactions data.
+        $(".transactions-list").append(tableTemplateString + "</table>");
+        // 
+        addUpdateEventListener();
     }
 });
 
 // Event listener for the delete button.
-$('body').on('click', '.btn-delete', function () {
+$('body').on('click', '.button-delete', function () {
     console.log($(this).data('id'));
     // API call to delete transaction by id.
     $.ajax({
@@ -50,7 +54,25 @@ $('body').on('click', '.btn-delete', function () {
             alert("Transaction was deleted.");
         }
     });
-})
+});
+
+// Event listener for the update button.
+function addUpdateEventListener() {
+    // Get the modal
+    var updateModal = document.getElementById('modal-update');
+    // Get the button that opens the modal
+    var updateButton = document.getElementById('button-update');
+    // When the user clicks on the button, open the modal 
+    updateButton.onclick = function () {
+        updateModal.style.display = "block";
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == updateModal) {
+            updateModal.style.display = "none";
+        };
+    };
+};
 
 // Click event on Delete button and then execute.
 // Inside click event, we need to know the id of the element.
