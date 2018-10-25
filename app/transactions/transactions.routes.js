@@ -3,15 +3,15 @@ const transactionsController = require('./transactions.controller');
 
 let router = express.Router();
 
-// CREATES transaction
+// CREATES transaction.
 router.post('/', transactionsController.createNewTransaction);
-// RETRIEVES all transactions
+// RETRIEVES all transactions.
 router.get('/all', transactionsController.getAllTransactions);
-// RETRIEVES transaction by ID
+// RETRIEVES transaction by ID.
 router.get('/:transactionid', transactionsController.getTransactionById);
-// UPDATES transaction by ID
+// UPDATES transaction by ID.
 router.put('/:transactionid', transactionsController.updateTransactionById);
-// DELETES transaction by ID
+// DELETES transaction by ID.
 router.delete('/:transactionid', transactionsController.deleteTransactionById);
 
 module.exports = router;

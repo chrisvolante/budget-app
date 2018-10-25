@@ -3,7 +3,7 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 
 // Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
-const userSchema = new mongoose.Schema({
+const usersSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   username: { type: String, required: true },
@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
 
 // Define Mongoose instance method.
 // Able to sanitize transactions object and not return sensitive information.
-userSchema.methods.serialize = function() {
+usersSchema.methods.serialize = function() {
   return {
     id: this._id,
     name: this.name,
@@ -22,12 +22,12 @@ userSchema.methods.serialize = function() {
 };
 
 // Hashes password before storing.
-userSchema.statics.hashPassword = function(password) {
+usersSchema.statics.hashPassword = function(password) {
   return bcrypt.hash(password, 10);
 };
 
 // Validates hashed passwords.
-userSchema.methods.validatePassword = function(password) {
+usersSchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
 };
 
@@ -39,5 +39,5 @@ const UserJoiSchema = Joi.object().keys({
   email: Joi.string().email().trim().required()
 });
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('user', usersSchema);
 module.exports = { User, UserJoiSchema };

@@ -8,6 +8,7 @@ const { PORT, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
 const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
+const usersRoutes = require('./users/users.routes');
 
 let server;
 const app = express();
@@ -21,6 +22,7 @@ app.use('/', express.static('public')); // Will serve static files that is the F
 app.use('/transactions', transactionRoutes);
 app.use('/accounts', accountsRoutes);
 app.use('/budgets', budgetsRoutes);
+app.use('/users/', usersRoutes);
 
 // In case we make a HTTP request that is unhandled by our Express server, we return a 404 status code and the message "Not Found."
 app.use('*', function (request, response) {

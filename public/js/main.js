@@ -7,7 +7,7 @@ function renderTransaction(transaction) {
             <td>${transaction.payee}</td>
             <td>$${transaction.amount}</td>
             <td>${transaction.accountsName}</td>
-            <td><button id="button-update" class="button-update" data-id="${transaction.id}">Update</button></td>
+            <td><button id="btn-update" class="button-update" data-id="${transaction.id}">Update</button></td>
             <td><button class="button-delete" data-id="${transaction.id}">Delete</button></td>
         </tr>
     `);
@@ -61,7 +61,7 @@ function addUpdateEventListener() {
     // Get the modal
     var updateModal = document.getElementById('modal-update');
     // Get the button that opens the modal
-    var updateButton = document.getElementById('button-update');
+    var updateButton = document.getElementById('btn-update');
     // When the user clicks on the button, open the modal 
     updateButton.onclick = function () {
         updateModal.style.display = "block";

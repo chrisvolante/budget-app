@@ -1,7 +1,7 @@
 const { Transaction } = require('./transactions.model');
 const { HTTP_STATUS_CODES } = require('../config');
 
-// CREATES transaction.
+// CREATES new transaction.
 exports.createNewTransaction = (request, response) => {
   const newTransaction = {
     payee: request.body.payee,
