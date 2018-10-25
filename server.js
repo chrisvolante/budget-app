@@ -16,7 +16,10 @@ app.use(bodyParser.json());
 // Will log common elements in HTTP requests.
 app.use(morgan('common'));
 
-// To Do Config Routes
+// Serve static files that is the Front-End.
+app.use('/', express.static('public'));
+
+// To Do Config Routes.
 app.use('/transactions', transactionRoutes);
 app.use('/accounts', accountsRoutes);
 app.use('/budgets', budgetsRoutes);
@@ -58,9 +61,3 @@ function closeServer() {
 if (require.main === module) {
   runServer(MONGO_URL, PORT).catch(err => console.error(err));
 };
-
-
-
-app.listen(3000, () => {
-    console.log('server is running in port 3000.')
-});
