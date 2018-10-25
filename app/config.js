@@ -1,5 +1,4 @@
 module.exports = {
-    // We use the OR ("||") operator to check if the PORT environment variable exists. If not, we default to 8080
     PORT: process.env.PORT || 8080,
     HTTP_STATUS_CODES: {
         OK: 200,
