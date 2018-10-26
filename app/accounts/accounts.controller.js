@@ -4,6 +4,7 @@ const { HTTP_STATUS_CODES } = require('../config');
 // CREATES new account.
 exports.createNewAccount = (request, response) => {
   const newAccount = {
+    user: request.user.id,
     name: request.body.name,
     balance: request.body.balance
   };
@@ -27,9 +28,26 @@ exports.createNewAccount = (request, response) => {
     });
 };
 
+// RETRIEVES user's accounts.
+exports.getUserAccounts = (request, response) => {
+  // Step 1: Attempt to retrieve all accounts.
+  Account.find({ user: request.user.id })
+    .populate('user')
+    .then(accounts => {
+      // Step 2: Returned sanitized accounts.
+      return reponse.status(HTTP_STATUS_CODES.OK).json(
+        accounts.map(account => account.serialize())
+      );
+    })
+    .catch(error => {
+      return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
+    });
+};
+
 // RETRIEVES all accounts.
 exports.getAllAccounts = (request, response) => {
   Account.find()
+    .populate('user')
     .then(accounts => {
       return response.status(HTTP_STATUS_CODES.OK).json(
         accounts.map(account => account.serialize())
@@ -40,9 +58,10 @@ exports.getAllAccounts = (request, response) => {
     });
 };
 
-// RETRIEVES account by ID.
+// RETRIEVES one account by ID.
 exports.getAccountById = (request, response) => {
   Account.findById(request.params.accountid)
+    .populate('user')
     .then(account => {
       return response.status(HTTP_STATUS_CODES.OK).json(account.serialize());
     })
@@ -50,6 +69,7 @@ exports.getAccountById = (request, response) => {
       return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
     });
 };
+
 // UPDATES account by ID.
 exports.updateAccountById = (request, response) => {
   const updatedAccount = {

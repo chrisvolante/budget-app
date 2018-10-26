@@ -4,12 +4,14 @@ const { HTTP_STATUS_CODES } = require('../config');
 // CREATES new transaction.
 exports.createNewTransaction = (request, response) => {
   const newTransaction = {
+    user: request.user.id,
     payee: request.body.payee,
     amount: request.body.amount,
     budgetsCategory: request.body.budgetsCategory,
     accountsName: request.body.accountsName,
     createDate: Date.now()
   };
+  
   // Step 1: Validate user's input is correct.
   const requiredFields = ['payee', 'amount', 'budgetsCategory', 'accountsName'];
   for (let i=0; i < requiredFields.length; i++) {
@@ -29,9 +31,26 @@ exports.createNewTransaction = (request, response) => {
     });
 };
 
+// RETRIEVES user's transactions.
+exports.getUserTransactions = (request, response) => {
+  // Step 1: Attempt to retrieve all transactions.
+  Transaction.find({ user: request.user.id })
+    .populate('user')
+    .then(transactions => {
+      // Step 2: Return sanitized transactions.
+      return response.status(HTTP_STATUS_CODES.OK).json(
+        transactions.map(transaction => transaction.serialize())
+      );
+    })
+    .catch(error => {
+      return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
+    });
+};
+
 // RETRIEVES all transactions.
 exports.getAllTransactions = (request, response) => {
   Transaction.find()
+    .populate('user')
     .then(transactions => {
       return response.status(HTTP_STATUS_CODES.OK).json(
         transactions.map(transaction => transaction.serialize())
@@ -45,6 +64,7 @@ exports.getAllTransactions = (request, response) => {
 // RETRIEVES one transaction by ID.
 exports.getTransactionById = (request, response) => {
   Transaction.findById(request.params.transactionid)
+    .populate('user')
     .then(transaction => {
       return response.status(HTTP_STATUS_CODES.OK).json(transaction.serialize());
     })

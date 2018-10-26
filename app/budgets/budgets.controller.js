@@ -4,6 +4,7 @@ const { HTTP_STATUS_CODES } = require('../config');
 // CREATES budget.
 exports.createNewBudget = (request, response) => {
   const newBudget = {
+    user: request.user.id,
     category: request.body.category,
     amount: request.body.amount,
     date: Date.now()
@@ -28,9 +29,26 @@ exports.createNewBudget = (request, response) => {
     });
 };
 
+// RETRIEVES user's budgets.
+exports.getUserBudgets = (request, response) => {
+  // Step 1: Attempt to retrieve all budgets using Mongoose.Model.find()
+  Budget.find({ user: request.user.id })
+    .populate('user')
+    .then(budgets => {
+      // Step 2: Return sanitized budgets.
+      return response.status(HTTP_STATUS_CODES.OK).json(
+        budgets.map(budget => budget.serialize())
+      );
+    })
+    .catch(error => {
+      return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
+    });
+};
+
 // RETRIEVES all budgets.
 exports.getAllBudgets = (request, response) => {
   Budget.find()
+    .populate('user')
     .then(budgets => {
       return response.status(HTTP_STATUS_CODES.OK).json(
         budgets.map(budget => budget.serialize())
@@ -41,9 +59,10 @@ exports.getAllBudgets = (request, response) => {
     });
 };
 
-// RETRIEVES budget by ID
+// RETRIEVES one budget by ID.
 exports.getBudgetById = (request, response) => {
   Budget.findById(request.params.budgetid)
+    .populate('user')
     .then(budget => {
       return response.status(HTTP_STATUS_CODES.OK).json(budget.serialize());
     })
@@ -52,7 +71,7 @@ exports.getBudgetById = (request, response) => {
     });
 };
 
-// UPDATES budget by ID
+// UPDATES budget by ID.
 exports.updateBudgetById = (request, response) => {
   const updatedBudget = {
     category: request.body.category,

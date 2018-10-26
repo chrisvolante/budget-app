@@ -1,3 +1,4 @@
+// Imports dependencies.
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -10,6 +11,7 @@ const { PORT, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
 const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
+const authRoutes = require('./auth/auth.routes');
 const usersRoutes = require('./users/users.routes');
 const { localStrategy, jwtStrategy } = require('./auth/auth.strategies');
 
@@ -23,11 +25,12 @@ app.use(bodyParser.json()); // Will tell the app that it will accept and send JS
 app.use(morgan('common')); // Will log common elements in HTTP requests.
 app.use('/', express.static('public')); // Will serve static files that is the Front-End.
 
-// Will set up routes.
+// Re-directs calls to appropriate routes.
 app.use('/transactions', transactionRoutes);
 app.use('/accounts', accountsRoutes);
 app.use('/budgets', budgetsRoutes);
-app.use('/users/', usersRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', usersRoutes);
 
 // In case we make a HTTP request that is unhandled by our Express server, we return a 404 status code and the message "Not Found."
 app.use('*', function (request, response) {

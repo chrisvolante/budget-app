@@ -1,17 +1,20 @@
 const express = require('express');
 const budgetsController = require('./budgets.controller');
+const { jwtPassportMiddleware } = require('../auth/auth.strategies');
 
 let router = express.Router();
 
-// CREATES budget.
-router.post('/', budgetsController.createNewBudget);
+// CREATES user budget.
+router.post('/', jwtPassportMiddleware, budgetsController.createNewBudget);
+// RETRIEVES user's budgets.
+router.get('/', jwtPassportMiddleware, budgetsController.getUserBudgets);
 // RETRIEVES all budgets.
 router.get('/all', budgetsController.getAllBudgets);
-// RETRIEVES budget by ID.
-router.get('/:budgetid', budgetsController.getBudgetById);
+// RETRIEVES one budget by ID.
+router.get('/:budgetid', jwtPassportMiddleware, budgetsController.getBudgetById);
 // UPDATES budget by ID.
-router.put('/:budget', budgetsController.updateBudgetById);
+router.put('/:budgetid', jwtPassportMiddleware, budgetsController.updateBudgetById);
 // DELETES budget by ID.
-router.delete('/:budgetid', budgetsController.deleteBudgetById);
+router.delete('/:budgetid', jwtPassportMiddleware, budgetsController.deleteBudgetById);
 
 module.exports = router;
