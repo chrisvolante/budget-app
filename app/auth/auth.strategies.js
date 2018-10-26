@@ -2,13 +2,13 @@ const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 
-const { User } = require('../user/user.model');
+const { User } = require('../users/users.model');
 const { JWT_SECRET } = require('../config');
 
 // The LocalStrategy gets used while trying to access an Endpoint using a User + Password combination.
 const localStrategy = new LocalStrategy((username, password, passportVerify) => {
     let user;
-    // Step 1: Verify the username exists
+    // Step 1: Verify the username exists.
     User.findOne({ username: username }).then(_user => {
       user = _user;
       if (!user) {

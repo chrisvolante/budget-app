@@ -1,6 +1,4 @@
 const express = require('express');
-// To learn more about the jsonwebtoken standard, see:
-// https://jwt.io/introduction/
 const jwt = require('jsonwebtoken');
 
 const { localPassportMiddleware, jwtPassportMiddleware } = require('./auth.strategies');

@@ -5,13 +5,18 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const { PORT, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
+
+// Imports routers from files.
 const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
 const usersRoutes = require('./users/users.routes');
+const { localStrategy, jwtStrategy } = require('./auth/auth.strategies');
 
 let server;
 const app = express();
+passport.use(localStrategy); // Configure Passport to use our localStrategy when receiving Username + Password combinations
+passport.use(jwtStrategy); // Configure Passport to use our jwtStrategy when receving JSON Web Tokens
 
 // MIDDLEWARE.
 app.use(bodyParser.json()); // Will tell the app that it will accept and send JSON data.

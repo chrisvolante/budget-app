@@ -13,15 +13,12 @@ exports.createNewuser = (request, response) => {
   };
 
   // Step 1: Validate new user information is correct.
-  // Here, we use the Joi NPM library for easy validation.
-  // https://www.npmjs.com/package/joi
   const validation = Joi.validate(newUser, UserJoiSchema);
   if (validation.error) {
     // Step 2A: If validation error is found, end the the request with a server error and error message.
     return response.status(HTTP_STATUS_CODES.BAD_REQUEST).json({ error: validation.error });
   }
   // Step 2B: Verify if the new user's email or username doesn't already exist in the database using Mongoose.Model.findOne() 
-  // https://mongoosejs.com/docs/api.html#model_Model.findOne
   User.findOne({
     // Mongoose $or operator: https://docs.mongodb.com/manual/reference/operator/query/or/ 
     $or: [
@@ -38,7 +35,6 @@ exports.createNewuser = (request, response) => {
   }).then(passwordHash => {
     newUser.password = passwordHash;
     // Step 4: Once password hash has replaced the raw password, we attempt to create the new user using Mongoose.Model.create()
-    // https://mongoosejs.com/docs/api.html#model_Model.create
     User.create(newUser)
       .then(createdUser => {
         // Step 5A: If created successfully, return the newly created user information .
