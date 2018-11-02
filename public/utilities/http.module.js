@@ -41,32 +41,6 @@ function loginUser(options) {
   });
 };
 
-// function getUserNotes(options) {
-//   const { jwtToken, onSuccess, onError } = options;
-//   $.ajax({
-//       type: 'GET',
-//       url: '/api/note',
-//       contentType: 'application/json',
-//       dataType: 'json',
-//       data: undefined,
-//       beforeSend: function (xhr) {
-//           xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
-//       },
-//       success: onSuccess,
-//       error: err => {
-//           console.error(err);
-//           if (onError) {
-//               onError(err);
-//           }
-//       }
-//   });
-// }
-
-// function getNoteById(options) {
-//   const { noteId, onSuccess } = options;
-//   $.getJSON(`/api/note/${noteId}`, onSuccess);
-// }
-
 function createTransaction(options) {
   const { jwtToken, newTransaction, onSuccess, onError } = options;
 
