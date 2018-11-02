@@ -1,7 +1,9 @@
+// Imports modules from utilities folder.
 const RENDER = window.RENDER_MODULE;
 const HTTP = window.HTTP_MODULE;
 const CACHE = window.CACHE_MODULE;
 
+// Waits for page to load before running code.
 $(document).ready(onPageLoad);
 
 function onPageLoad() {

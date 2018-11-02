@@ -71,3 +71,16 @@ exports.getUserById = (request, response) => {
       return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
     });
 };
+
+// DELETES user by ID.
+exports.deleteUserById = (request, response) => {
+  // Step 1: Finds user by ID and removes.
+  User.findByIdAndDelete(request.params.userid)
+    .then(() => {
+      // Since deletion was performed we end request with No Content status code.
+      return response.status(HTTP_STATUS_CODES.NO_CONTENT).end();
+    })
+    .catch(error => {
+      return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
+    });
+};

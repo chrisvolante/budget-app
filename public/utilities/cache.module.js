@@ -1,3 +1,4 @@
+// Exports module to be used in other files.
 window.CACHE_MODULE = {
   getAuthenticatedUserFromCache,
   saveAuthenticatedUserIntoCache,

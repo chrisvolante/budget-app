@@ -1,24 +1,17 @@
 let STATE = {};
 
+// Imports modules from utilities folder.
 const RENDER = window.RENDER_MODULE;
 const CACHE = window.CACHE_MODULE;
 const HTTP = window.HTTP_MODULE;
 
+// Waits for page to load before running code.
 $(document).ready(onPageLoad);
 
 function onPageLoad() {
   updateAuthenticatedUI();
-    
-  // if (STATE.authUser) {
-  //     HTTP.getUserNotes({
-  //         jwtToken: STATE.authUser.jwtToken,
-  //         onSuccess: RENDER.renderNotesList
-  //     });
-  // };
   
   $('#logout-btn').on('click', onLogoutBtnClick);
-  // $('#note-list').on('click', '#delete-note-btn', onDeleteNoteBtnClick);
-  // $('#note-list').on('click', '#note-card', onNoteCardClick);
 };
 
 function onLogoutBtnClick(event) {
