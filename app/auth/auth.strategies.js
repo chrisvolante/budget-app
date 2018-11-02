@@ -55,8 +55,8 @@ const localPassportMiddleware = passport.authenticate('local', { session: false 
 const jwtPassportMiddleware = passport.authenticate('jwt', { session: false });
 
 module.exports = {
-    localStrategy,
-    jwtStrategy,
-    localPassportMiddleware,
-    jwtPassportMiddleware
+  localStrategy,
+  jwtStrategy,
+  localPassportMiddleware,
+  jwtPassportMiddleware
 };

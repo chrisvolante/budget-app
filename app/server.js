@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const { PORT, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
+const { PORT, HTTP_STATUS_CODES, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
 
 // Imports routers from files.
 const transactionRoutes = require('./transactions/transactions.routes');
@@ -50,15 +50,14 @@ function startServer(testEnv) {
   return new Promise((resolve, reject) => {
     let mongoUrl;
 
+    // Checks to see if we want to do testing on the test server.
     if (testEnv) {
       mongoUrl = TEST_MONGO_URL;
     } else {
       mongoUrl = MONGO_URL;
     };
     // Step 1: Attempt to connect to MongoDB with mongoose.
-    mongoose.connect(mongoUrl, {
-      useNewUrlParser: true
-    }, error => {
+    mongoose.connect(mongoUrl, { useNewUrlParser: true }, error => {
       if (error) {
         // Step 2A: If there is an error starting mongo, log error, reject promise and stop code execution.
         console.error(error);
@@ -95,7 +94,7 @@ function stopServer() {
           // Step 3B: If the server shutdown correctly, log a success message, and resolve.
           console.log('Express server stopped.');
           resolve();
-        }
+        };
       });
     }));
 };

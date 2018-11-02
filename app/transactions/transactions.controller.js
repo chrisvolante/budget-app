@@ -35,7 +35,7 @@ exports.createNewTransaction = (request, response) => {
 exports.getUserTransactions = (request, response) => {
   // Step 1: Attempt to retrieve all transactions.
   Transaction.find({ user: request.user.id })
-    .populate('user')
+    .populate('user', 'name email')
     .then(transactions => {
       // Step 2: Return sanitized transactions.
       return response.status(HTTP_STATUS_CODES.OK).json(

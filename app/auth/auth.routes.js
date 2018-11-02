@@ -6,6 +6,7 @@ let router = express.Router();
 
 // User Login.
 router.post('/login', localPassportMiddleware, authController.userLogin);
+
 // User refresh.
 router.post('/refresh', jwtPassportMiddleware, authController.userRefresh);
 
