@@ -15,11 +15,11 @@ function onReady() {
 function onCreateSubmit(event) {
   event.preventDefault();
 
-  const newTransaction = {
-    payee: $('#payee-txt').val(),
+  let newTransaction = {
+    payee: $('#payee-text').val(),
     amount: $('#amount-number').val(),
-    budgetsCategory: $('budgets-category-text').val(),
-    accountsName: $('accounts-name-text').val()
+    budgetsCategory: $('#budgets-category-text').val(),
+    accountsName: $('#accounts-name-text').val()
   };
 
   HTTP.createTransaction({

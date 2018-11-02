@@ -12,6 +12,7 @@ exports.createNewTransaction = (request, response) => {
     createDate: Date.now()
   };
   
+  console.log(newTransaction);
   // Step 1: Validate user's input is correct.
   const requiredFields = ['payee', 'amount', 'budgetsCategory', 'accountsName'];
   for (let i=0; i < requiredFields.length; i++) {
