@@ -33,12 +33,16 @@
 
 }
 
-.transactions-list {
+#auth-menu h4 {
+  margin-left: 47.4%;
+}
+
+#transactions-list {
     float: right;
     margin-right: 15%;
 }
 
-.transaction {
+#transaction {
     border: 1px solid black;
     background-color: orange;
     color: white;

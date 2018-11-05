@@ -11,16 +11,54 @@ $(document).ready(onPageLoad);
 function onPageLoad() {
   updateAuthenticatedUI();
   
-  $('#logout-btn').on('click', onLogoutBtnClick);
+  if (STATE.authUser) {
+    HTTP.getUserTransactions({
+      jwtToken: STATE.authUser.jwtToken,
+      onSuccess: RENDER.renderTransactionsList
+    });
+  } 
+
+  $('#logout-button').on('click', onLogoutButtonClick);
+  $('#transactions-list').on('click', '#button-delete', onDeleteButtonClick);
+  $('#transactions-list').on('click', '#button-update', onUpdateButtonClick);
 };
 
-function onLogoutBtnClick(event) {
+function onLogoutButtonClick(event) {
   const confirmation = confirm('Are you sure you want to logout?');
   if (confirmation) {
     CACHE.deleteAuthenticatedUserFromCache();
     window.open('/auth/login.html', '_self');
   };
 };
+
+function onDeleteButtonClick(event) {
+  event.stopImmediatePropagation(); 
+  // Step 1: Get the transaction id to delete from it's parent.
+  const transactionId = $(event.currentTarget).attr('data-id');
+  console.log(transactionId);
+  // Step 2: Verify use is sure of deletion
+  const userSaidYes = confirm('Are you sure you want to delete this transaction?');
+  if (userSaidYes) {
+      // Step 3: Make ajax call to transaction note
+      HTTP.deleteTransaction({
+          transactionId: transactionId,
+          jwtToken: STATE.authUser.jwtToken,
+          onSuccess: () => {
+              // Step 4: If succesful, reload the transactions list
+              alert('Note deleted succesfully, reloading results ...');
+              HTTP.getUserTransactions({
+                  jwtToken: STATE.authUser.jwtToken,
+                  onSuccess: window.open('/', '_self')
+              });
+          }
+      });
+  }
+};
+
+function onUpdateButtonClick(event) {
+  
+  window.open(`/transactions/update.html?id=${transactionId}`, '_self');
+}; 
 
 function updateAuthenticatedUI() {
   const authUser = CACHE.getAuthenticatedUserFromCache();
@@ -31,37 +69,7 @@ function updateAuthenticatedUI() {
   } else {
       $('#default-menu').removeAttr('hidden');
   }
-}
-
-// // API call to retrieve all of the transactions.
-// $.ajax({
-//     url: "/transactions/all",
-//     type: "GET",
-//     success: function (response) {
-//         // Table headers for Transactions.
-//         let tableTemplateString =
-//             `<div class="transaction">
-//                 <table>
-//                     <tr>
-//                         <th>Date</th>
-//                         <th>Budget</th>
-//                         <th>Payee</th>
-//                         <th>Amount</th>
-//                         <th>Account</th>
-//                         <th></th>
-//                         <th></th>
-//                     </tr>
-//             `;
-//         // Adds data from transactions object into the tableTemplateString.
-//         for (let i = 0; i < response.length; i++) {
-//             tableTemplateString += renderTransaction(response[i]);
-//         };
-//         // Populates table with transactions data.
-//         $(".transactions-list").append(tableTemplateString + "</table>");
-//         // 
-//         // addUpdateEventListener();
-//     }
-// });
+};
 
 // // Event listener for the delete button.
 // $('body').on('click', '.button-delete', function () {

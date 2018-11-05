@@ -2,11 +2,16 @@
 window.HTTP_MODULE = {
   signupUser,
   loginUser,
-  createTransaction
+  createTransaction,
+  getTransactionById,
+  getUserTransactions,
+  updateTransaction,
+  deleteTransaction
 };
 
 function signupUser(options) {
   const { userData, onSuccess, onError } = options;
+
   $.ajax({
     type: 'POST',
     url: '/users/',
@@ -17,7 +22,7 @@ function signupUser(options) {
     error: err => {
       console.error(err);
       if (onError) {
-          onError(err);
+        onError(err);
       }
     }
   });
@@ -25,6 +30,7 @@ function signupUser(options) {
 
 function loginUser(options) {
   const { userData, onSuccess, onError } = options;
+
   $.ajax({
     type: 'POST',
     url: '/auth/login',
@@ -57,8 +63,77 @@ function createTransaction(options) {
     error: err => {
       console.error(err);
       if (onError) {
-          onError();
+        onError();
       }
     }
   });
 };
+
+function getTransactionById(options) {
+  const { transactionid, onSuccess } = options;
+  $.getJSON(`/transactions/${transactionid}`, onSuccess);
+};
+
+function getUserTransactions(options) {
+  const { jwtToken, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'GET',
+    url: '/transactions',
+    contentType: 'application/json',
+    dataType: 'json',
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
+  });
+};
+
+function updateTransaction(options) {
+  const { jwtToken, transactionId, updatedTransaction, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'PUT',
+    url: `/transactions/${transactionId}`,
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(updatedTransaction),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
+  });
+};
+
+function deleteTransaction(options) {
+  const { transactionId, jwtToken, onSuccess, onError } = options;
+  $.ajax({
+      type: 'DELETE',
+      url: `/transactions/${transactionId}`,
+      contentType: 'application/json',
+      dataType: 'json',
+      data: undefined,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+      },
+      success: onSuccess,
+      error: err => {
+        console.error(err);
+        if (onError) {
+          onError(err);
+        }
+      }
+  });
+}
