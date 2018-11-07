@@ -1,7 +1,9 @@
+// Imports dependencies and passport strategies.
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 
+// Imports User mongoose schema model.
 const { User } = require('../users/users.model');
 const { JWT_SECRET } = require('../config');
 
@@ -54,6 +56,7 @@ const jwtStrategy = new JwtStrategy(
 const localPassportMiddleware = passport.authenticate('local', { session: false });
 const jwtPassportMiddleware = passport.authenticate('jwt', { session: false });
 
+// Exports passport middleware strategies.
 module.exports = {
   localStrategy,
   jwtStrategy,

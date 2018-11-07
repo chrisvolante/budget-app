@@ -1,6 +1,7 @@
+// Imports dependencies.
 const mongoose = require('mongoose');
 
-// Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+// Defines mongoose schema for accounts.
 const budgetsSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   category: { type: String, required: true },
@@ -27,5 +28,6 @@ budgetsSchema.methods.serialize = function() {
   };
 };
 
+// Exports Accout mongoose schema model to be used in budgets.controller.js.
 const Budget = mongoose.model('budgets', budgetsSchema);
 module.exports = { Budget };

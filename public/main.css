@@ -2,48 +2,21 @@
     box-sizing: border-box;
 }
 
-/* The Modal (background) */
-.modal {
-    /* Hidden by default */
-    display: none;
-    /* Stay in place */
-    position: fixed;
-    /* Sit on top */
-    z-index: 1;
-
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    /* Enable scroll if needed */
-    overflow: auto;
-    /* Fallback color */
-    background-color: rgb(0, 0, 0);
-    /* Black w/ opacity */
-    background-color: rgba(0, 0, 0, 0.4);
+#accounts-list {
+  width: 35%;
 }
 
-/* Modal Content/Box */
-.modal-update-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-
-}
-
-#auth-menu h4 {
-  margin-left: 47.4%;
+#budgets-list {
+  width: 25%;
 }
 
 #transactions-list {
-    float: right;
-    margin-right: 15%;
+  float: right;
+  width: 40%;
 }
 
-#transaction {
-    border: 1px solid black;
-    background-color: orange;
-    color: white;
+.table {
+  border: 1px solid black;
+  background-color: orange;
+  color: white;
 }

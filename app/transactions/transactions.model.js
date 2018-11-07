@@ -1,6 +1,7 @@
+// Imports depdendencies.
 const mongoose = require('mongoose');
 
-// Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+// Defines mongoose schema for transactions.
 const transactionsSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   payee: { type: String, required: true },
@@ -33,5 +34,6 @@ transactionsSchema.methods.serialize = function () {
   };
 };
 
+// Exports Transaction mongoose model to be used in transactions.controller.js.
 const Transaction = mongoose.model('transactions', transactionsSchema);
 module.exports = { Transaction };

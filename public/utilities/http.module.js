@@ -6,7 +6,11 @@ window.HTTP_MODULE = {
   getTransactionById,
   getUserTransactions,
   updateTransaction,
-  deleteTransaction
+  deleteTransaction,
+  getUserBudgets,
+  createBudget,
+  updateBudget,
+  deleteBudget
 };
 
 function signupUser(options) {
@@ -136,4 +140,90 @@ function deleteTransaction(options) {
         }
       }
   });
-}
+};
+
+function createBudget(options) {
+  const { jwtToken, newBudget, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'POST',
+    url: '/budgets',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(newBudget),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError();
+      }
+    }
+  });
+};
+
+function getUserBudgets(options) {
+  const { jwtToken, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'GET',
+    url: '/budgets',
+    contentType: 'application/json',
+    dataType: 'json',
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
+  });
+};
+
+function updateBudget(options) {
+  const { jwtToken, budgetId, updatedBudget, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'PUT',
+    url: `/budgets/${budgetId}`,
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(updatedBudget),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
+  });
+};
+
+function deleteBudget(options) {
+  const { budgetId, jwtToken, onSuccess, onError } = options;
+  $.ajax({
+      type: 'DELETE',
+      url: `/budgets/${budgetId}`,
+      contentType: 'application/json',
+      dataType: 'json',
+      data: undefined,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+      },
+      success: onSuccess,
+      error: err => {
+        console.error(err);
+        if (onError) {
+          onError(err);
+        }
+      }
+  });
+};

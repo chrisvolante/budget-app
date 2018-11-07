@@ -1,6 +1,9 @@
+// Imports dependencies.
 const Joi = require('joi');
 
+// Imports User mongoose schema models from users.model.js file.
 const { User, UserJoiSchema } = require('./users.model');
+// Imports HTTP_STATUS_CODES from config.js file.
 const { HTTP_STATUS_CODES } = require('../config');
 
 // CREATES new user.
@@ -20,7 +23,7 @@ exports.createNewuser = (request, response) => {
   }
   // Step 2B: Verify if the new user's email or username doesn't already exist in the database using Mongoose.Model.findOne() 
   User.findOne({
-    // Mongoose $or operator: https://docs.mongodb.com/manual/reference/operator/query/or/ 
+    // Condition will be true if either the email OR username has been found.
     $or: [
       { email: newUser.email },
       { username: newUser.username }

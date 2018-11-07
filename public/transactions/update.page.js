@@ -11,7 +11,6 @@ function onReady() {
   STATE.transactionid = ETC.getQueryStringParameter('id');
   STATE.authUser = CACHE.getAuthenticatedUserFromCache();
 
-  console.log(STATE.transactionid);
   $('#update-transactions-form').on('submit', onUpdateSubmit);
 };
 

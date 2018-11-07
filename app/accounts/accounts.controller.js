@@ -1,8 +1,11 @@
+// Imports Account mongoose model from accounts.model.js file.
 const { Account } = require('./accounts.model');
+// Imports HTTP_STATUS_CODES from config.js file.
 const { HTTP_STATUS_CODES } = require('../config');
 
 // CREATES new account.
 exports.createNewAccount = (request, response) => {
+  // Stores user's account information.
   const newAccount = {
     user: request.user.id,
     name: request.body.name,

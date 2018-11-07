@@ -5,17 +5,20 @@
   "main": "server.js",
   "scripts": {
     "start": "node start.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --exit"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "eslint": "^5.7.0",
     "express": "^4.16.4",
     "joi": "^14.0.1",
     "jsonwebtoken": "^8.3.0",
+    "mocha": "^5.2.0",
     "mongoose": "^5.3.4",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",

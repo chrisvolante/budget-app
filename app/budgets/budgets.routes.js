@@ -1,5 +1,9 @@
+// Imports dependencies.
 const express = require('express');
+
+// Imports implementation details for CRUD endpoints.
 const budgetsController = require('./budgets.controller');
+// Imports JSON webtoken middleware.
 const { jwtPassportMiddleware } = require('../auth/auth.strategies');
 
 let router = express.Router();
@@ -22,4 +26,5 @@ router.put('/:budgetid', jwtPassportMiddleware, budgetsController.updateBudgetBy
 // DELETES budget by ID.
 router.delete('/:budgetid', jwtPassportMiddleware, budgetsController.deleteBudgetById);
 
+// Exports router to be used in server.js.
 module.exports = router;

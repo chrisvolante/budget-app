@@ -1,7 +1,9 @@
+// Imports dependencies.
 const jwt = require('jsonwebtoken');
-
+// Imports JSON webtoken secret and expiry variables from config.js.
 const { JWT_SECRET, JWT_EXPIRY } = require('../config.js');
 
+// Creates JSON webtoken.
 function createJwtToken(user) {
     return jwt.sign({ user }, JWT_SECRET, {
         subject: user.username,

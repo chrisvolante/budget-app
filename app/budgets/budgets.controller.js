@@ -1,8 +1,11 @@
+// Imports Budget mongoose model from budgets.model.js file.
 const { Budget } = require('./budgets.model');
+// Imports HTTP_STATUS_CODES from config.js file.
 const { HTTP_STATUS_CODES } = require('../config');
 
 // CREATES budget.
 exports.createNewBudget = (request, response) => {
+  // Stores user's budget information.
   const newBudget = {
     user: request.user.id,
     category: request.body.category,
@@ -98,7 +101,7 @@ exports.updateBudgetById = (request, response) => {
     });
 };
 
-// DELETES budget by ID
+// DELETES budget by ID.
 exports.deleteBudgetById = (request, response) => {
   // Step 1: Finds budget by ID and removes.
   Budget.findByIdAndDelete(request.params.budgetid)

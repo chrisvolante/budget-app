@@ -16,11 +16,32 @@ function onPageLoad() {
       jwtToken: STATE.authUser.jwtToken,
       onSuccess: RENDER.renderTransactionsList
     });
+    HTTP.getUserBudgets({
+      jwtToken: STATE.authUser.jwtToken,
+      onSuccess: RENDER.renderBudgetsList
+    });
+    // HTTP.getUserAccounts({
+    //   jwtToken: STATE.authUser.jwtToken,
+    //   onSuccess: RENDER.renderAccountsList
+    // });
   } 
 
   $('#logout-button').on('click', onLogoutButtonClick);
   $('#transactions-list').on('click', '#button-delete', onDeleteButtonClick);
   $('#transactions-list').on('click', '#button-update', onUpdateButtonClick);
+  $('#budgets-list').on('click','#button-update', onUpdateButtonClick);
+  $('#budgets-list').on('click','#button-delete', onDeleteButtonClick);
+};
+
+function updateAuthenticatedUI() {
+  const authUser = CACHE.getAuthenticatedUserFromCache();
+  if (authUser) {
+      STATE.authUser = authUser;
+      $('#nav-greeting').html(`Welcome, ${authUser.name}`);
+      $('#auth-menu').removeAttr('hidden');
+  } else {
+      $('#default-menu').removeAttr('hidden');
+  }
 };
 
 function onLogoutButtonClick(event) {
@@ -34,60 +55,47 @@ function onLogoutButtonClick(event) {
 function onDeleteButtonClick(event) {
   event.stopImmediatePropagation(); 
   // Step 1: Get the transaction id to delete from it's parent.
-  const transactionId = $(event.currentTarget).attr('data-id');
-  console.log(transactionId);
-  // Step 2: Verify use is sure of deletion
-  const userSaidYes = confirm('Are you sure you want to delete this transaction?');
+  const transactionId = $(event.currentTarget).data('id');
+  const budgetId = $(event.currentTarget).data('id');
+  // Step 2: Verify user is sure of deletion.
+  const userSaidYes = confirm('Are you sure you want to delete?');
   if (userSaidYes) {
-      // Step 3: Make ajax call to transaction note
+      // Step 3: Make ajax call to delete transaction.
       HTTP.deleteTransaction({
           transactionId: transactionId,
           jwtToken: STATE.authUser.jwtToken,
           onSuccess: () => {
-              // Step 4: If succesful, reload the transactions list
-              alert('Note deleted succesfully, reloading results ...');
+              // Step 4: If succesful, reload the transactions list.
               HTTP.getUserTransactions({
                   jwtToken: STATE.authUser.jwtToken,
                   onSuccess: window.open('/', '_self')
               });
           }
       });
+      HTTP.deleteBudget({
+        budgetId: budgetId,
+        jwtToken: STATE.authUser.jwtToken,
+        onSuccess: () => {
+            // Step 4: If succesful, reload the budgets list.
+            HTTP.getUserBudgets({
+                jwtToken: STATE.authUser.jwtToken,
+                onSuccess: window.open('/', '_self')
+            });
+        }
+    });
   }
 };
 
 function onUpdateButtonClick(event) {
-  
-  window.open(`/transactions/update.html?id=${transactionId}`, '_self');
-}; 
+  event.stopImmediatePropagation(); 
+  const transactionId = $(event.currentTarget).data('id');
+  const budgetId = $(event.currentTarget).data('id');
+  const currentFeature = $(event.currentTarget).data('feature');
 
-function updateAuthenticatedUI() {
-  const authUser = CACHE.getAuthenticatedUserFromCache();
-  if (authUser) {
-      STATE.authUser = authUser;
-      $('#nav-greeting').html(`Welcome, ${authUser.name}`);
-      $('#auth-menu').removeAttr('hidden');
-  } else {
-      $('#default-menu').removeAttr('hidden');
+  if(currentFeature === "transaction") {
+    window.open(`/transactions/update.html?id=${transactionId}`, '_self');
+  } else if(currentFeature === "budget") {
+    window.open(`/budgets/update.budgets.html?id=${budgetId}`, '_self');
   }
-};
 
-// // Event listener for the delete button.
-// $('body').on('click', '.button-delete', function () {
-//     console.log($(this).data('id'));
-//     // API call to delete transaction by id.
-//     $.ajax({
-//         url: `/transactions/${$(this).data('id')}`,
-//         type: "DELETE",
-//         success: function (response) {
-//             alert("Transaction was deleted.");
-//         }
-//     });
-// });
-
-// $('body').on('click', '.button-update', function () {
-//   $('#modal-update').css('display', 'block');
-// } );
-
-// $('#modal-update').on('click', function() {
-//   $('#modal-update').css('display', 'none');
-// });
+}; 

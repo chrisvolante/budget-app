@@ -7,7 +7,7 @@ const passport = require('passport');
 
 const { PORT, HTTP_STATUS_CODES, MONGO_URL, TEST_MONGO_URL } = require('./config.js');
 
-// Imports routers from files.
+// Imports routers/strategies from files.
 const transactionRoutes = require('./transactions/transactions.routes');
 const accountsRoutes = require('./accounts/accounts.routes');
 const budgetsRoutes = require('./budgets/budgets.routes');
@@ -39,6 +39,7 @@ app.use('*', function (request, response) {
   });
 });
 
+// Exports functions to start.js.
 module.exports = {
   app,
   startServer,

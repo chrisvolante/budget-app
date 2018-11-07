@@ -1,8 +1,11 @@
+// Imports Transaction mongoose schema model from transactions.model.js file.
 const { Transaction } = require('./transactions.model');
+// Imports HTTP_STATUS_CODES from config.js file.
 const { HTTP_STATUS_CODES } = require('../config');
 
 // CREATES new transaction.
 exports.createNewTransaction = (request, response) => {
+  // Stores user's transaction information.
   const newTransaction = {
     user: request.user.id,
     payee: request.body.payee,

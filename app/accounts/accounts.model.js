@@ -1,6 +1,7 @@
+// Imports dependencies.
 const mongoose = require('mongoose');
 
-// Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+// Defines mongoose schema for accounts.
 const accountsSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   name: { type: String, required: true },
@@ -11,7 +12,7 @@ const accountsSchema = new mongoose.Schema({
 // Able to sanitize accounts object and not return sensitive information.
 accountsSchema.methods.serialize = function() {
   let user;
-  // We serialize the user if it's populated to avoid returning any sensitive information, like the password hash.
+  // We serialize the user if it's populated to avoid returning any sensitive information.
   if (typeof this.user.serialize === 'function') {
       user = this.user.serialize();
   } else {
@@ -25,5 +26,6 @@ accountsSchema.methods.serialize = function() {
   };
 };
 
+// Exports Account mongoose schema model to be used in accounts.controller.js.
 const Account = mongoose.model('accounts', accountsSchema);
 module.exports = { Account };

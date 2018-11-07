@@ -1,8 +1,9 @@
+// Imports dependencies.
 const mongoose = require('mongoose');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 
-// Each Mongoose schema maps to a MongoDB collection and defines the shape of the documents within that collection.
+// Defines mongoose schema for users.
 const usersSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },

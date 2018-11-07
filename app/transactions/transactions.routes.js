@@ -1,5 +1,9 @@
+// Imports dependencies.
 const express = require('express');
+
+// Imports implementation details for CRUD endpoints.
 const transactionsController = require('./transactions.controller');
+// Imports JSON webtoken middleware.
 const { jwtPassportMiddleware } = require('../auth/auth.strategies');
 
 let router = express.Router();
@@ -22,4 +26,5 @@ router.put('/:transactionid', jwtPassportMiddleware, transactionsController.upda
 // DELETES transaction by ID.
 router.delete('/:transactionid', jwtPassportMiddleware, transactionsController.deleteTransactionById);
 
+// Exports router to be used in server.js.
 module.exports = router;
