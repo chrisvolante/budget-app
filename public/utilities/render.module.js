@@ -1,6 +1,7 @@
 window.RENDER_MODULE = {
   renderTransactionsList,
-  renderBudgetsList
+  renderBudgetsList,
+  renderAccountsList
 };
 
 // Renders list of user's transactions to the DOM.
@@ -72,6 +73,39 @@ function renderBudgetsList(budgets) {
           <td>${budget.amount}</td>
           <td><button id="button-update" data-id="${budget.id}" data-feature="budget">Update</button></td>
           <td><button id="button-delete" data-id="${budget.id}" data-feature="budget">Delete</button></td>
+      </tr>
+    `);
+  };
+};
+
+function renderAccountsList(accounts) {
+  let tableTemplateString = `
+    <h4><a href="/accounts/create.accounts.html">Create New Account</a></h4>
+    <div class="account table">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Balance</th>
+          <th></th>
+          <th></th>
+        </tr>
+  `;
+
+  // Adds data from accounts object into the tableTemplateString.
+  for (let i = 0; i < accounts.length; i++) {
+    tableTemplateString += accountToHtml(accounts[i]);
+  };
+
+  // Populates table with accounts data.
+  $("#accounts-list").append(tableTemplateString + "</table></div>");
+
+  function accountToHtml(account) {
+    return (`
+      <tr>
+          <td>${account.name}</td>
+          <td>${account.balance}</td>
+          <td><button id="button-update" data-id="${account.id}" data-feature="account">Update</button></td>
+          <td><button id="button-delete" data-id="${account.id}" data-feature="account">Delete</button></td>
       </tr>
     `);
   };

@@ -35,14 +35,15 @@ exports.createNewAccount = (request, response) => {
 exports.getUserAccounts = (request, response) => {
   // Step 1: Attempt to retrieve all accounts.
   Account.find({ user: request.user.id })
-    .populate('user')
+    .populate('user', 'name email')
     .then(accounts => {
       // Step 2: Returned sanitized accounts.
-      return reponse.status(HTTP_STATUS_CODES.OK).json(
+      return response.status(HTTP_STATUS_CODES.OK).json(
         accounts.map(account => account.serialize())
       );
     })
     .catch(error => {
+      console.log(error);
       return response.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).json(error);
     });
 };

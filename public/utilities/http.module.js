@@ -10,7 +10,8 @@ window.HTTP_MODULE = {
   getUserBudgets,
   createBudget,
   updateBudget,
-  deleteBudget
+  deleteBudget,
+  getUserAccounts
 };
 
 function signupUser(options) {
@@ -225,5 +226,26 @@ function deleteBudget(options) {
           onError(err);
         }
       }
+  });
+};
+
+function getUserAccounts(options) {
+  const { jwtToken, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'GET',
+    url: '/accounts',
+    contentType: 'application/json',
+    dataType: 'json',
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
   });
 };

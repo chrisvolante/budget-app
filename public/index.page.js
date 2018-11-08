@@ -20,17 +20,17 @@ function onPageLoad() {
       jwtToken: STATE.authUser.jwtToken,
       onSuccess: RENDER.renderBudgetsList
     });
-    // HTTP.getUserAccounts({
-    //   jwtToken: STATE.authUser.jwtToken,
-    //   onSuccess: RENDER.renderAccountsList
-    // });
+    HTTP.getUserAccounts({
+      jwtToken: STATE.authUser.jwtToken,
+      onSuccess: RENDER.renderAccountsList
+    });
   } 
 
   $('#logout-button').on('click', onLogoutButtonClick);
   $('#transactions-list').on('click', '#button-delete', onDeleteButtonClick);
   $('#transactions-list').on('click', '#button-update', onUpdateButtonClick);
-  $('#budgets-list').on('click','#button-update', onUpdateButtonClick);
-  $('#budgets-list').on('click','#button-delete', onDeleteButtonClick);
+  $('#budgets-list').on('click', '#button-update', onUpdateButtonClick);
+  $('#budgets-list').on('click', '#button-delete', onDeleteButtonClick);
 };
 
 function updateAuthenticatedUI() {

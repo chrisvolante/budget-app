@@ -36,7 +36,7 @@ exports.createNewBudget = (request, response) => {
 exports.getUserBudgets = (request, response) => {
   // Step 1: Attempt to retrieve all budgets using Mongoose.Model.find()
   Budget.find({ user: request.user.id })
-    .populate('user')
+    .populate('user', 'name email')
     .then(budgets => {
       // Step 2: Return sanitized budgets.
       return response.status(HTTP_STATUS_CODES.OK).json(
