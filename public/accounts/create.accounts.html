@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
+</head>
+
+<body>
+  <a href="/">Back to Home</a>
+  <h1>Create New Account</h1>
+  <form id="new-accounts-form">
+
+    <label for="accounts-name-text">
+      Account Name: <input id="accounts-name-text" type="text" required><br>
+    </label>
+
+    <label for="accounts-balance">
+      Balance: <input id="accounts-balance" type="number" required><br>
+    </label>
+
+    <br>
+    <input type="submit" value="Create New Account">
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="../utilities/cache.module.js"></script>
+  <script src="../utilities/http.module.js"></script>
+  <script src="create.accounts.page.js"></script>
+</body>
+
+</html>

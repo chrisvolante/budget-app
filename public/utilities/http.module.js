@@ -11,7 +11,10 @@ window.HTTP_MODULE = {
   createBudget,
   updateBudget,
   deleteBudget,
-  getUserAccounts
+  getUserAccounts,
+  createAccount,
+  updateAccount,
+  deleteAccount
 };
 
 function signupUser(options) {
@@ -229,6 +232,50 @@ function deleteBudget(options) {
   });
 };
 
+function createAccount(options) {
+  const { jwtToken, newAccount, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'POST',
+    url: '/accounts',
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(newAccount),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError();
+      }
+    }
+  });
+};
+
+function updateAccount(options) {
+  const { jwtToken, accountId, updatedAccount, onSuccess, onError } = options;
+
+  $.ajax({
+    type: 'PUT',
+    url: `/accounts/${accountId}`,
+    contentType: 'application/json',
+    dataType: 'json',
+    data: JSON.stringify(updatedAccount),
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+    },
+    success: onSuccess,
+    error: err => {
+      console.error(err);
+      if (onError) {
+        onError(err);
+      }
+    }
+  });
+};
+
 function getUserAccounts(options) {
   const { jwtToken, onSuccess, onError } = options;
 
@@ -247,5 +294,26 @@ function getUserAccounts(options) {
         onError(err);
       }
     }
+  });
+};
+
+function deleteAccount(options) {
+  const { accountId, jwtToken, onSuccess, onError } = options;
+  $.ajax({
+      type: 'DELETE',
+      url: `/accounts/${accountId}`,
+      contentType: 'application/json',
+      dataType: 'json',
+      data: undefined,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+      },
+      success: onSuccess,
+      error: err => {
+        console.error(err);
+        if (onError) {
+          onError(err);
+        }
+      }
   });
 };

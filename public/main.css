@@ -3,7 +3,7 @@
 }
 
 #accounts-list {
-  width: 35%;
+  width: 40%;
 }
 
 #budgets-list {
@@ -12,7 +12,7 @@
 
 #transactions-list {
   float: right;
-  width: 40%;
+  width: 45%;
 }
 
 .table {
