@@ -10,30 +10,31 @@
 </head>
 
 <body>
-  <a href="/">Back to Home</a>
-  <h1>Create New Transaction</h1>
-  <form id="new-transactions-form">
-    <label for="payee-text">
-      Payee: <input id="payee-text" type="text" required><br>
-    </label>
-
-    <label for="amount-number">
-      Amount: <input id="amount-number" type="number" required><br>
-    </label>
-
-    <label for="budgets-category-text">
-      Budget Category: <input id="budgets-category-text" type="text" required><br>
-    </label>
-
-    <label for="accounts-name-text">
-      Account Name: <input id="accounts-name-text" type="text" required><br>
-    </label>
-
-    <br>
-    <input type="submit" value="Create New Transaction">
-
-    <div class="budgets-categories-results"></div>
-  </form>
+  <div class="container">
+    <div class="create-transactions signup">
+      <h1>Create New Transaction</h1>
+      <form id="new-transactions-form">
+        <div>
+          <label for="payee-text">Payee</label>
+          <input type="text" class="text-input" id="payee-text" required>
+        </div>
+        <div>
+          <label for="amount-number">Amount</label>
+          <input type="number" class="text-input" id="amount-number" required>
+        </div>
+        <div>
+          <label for="budgets-category-text">Budget Category</label>
+          <input type="text" class="text-input" id="budgets-category-text" required>
+        </div>
+        <div>
+          <label for="accounts-name-text">Account Type</label>
+          <input type="text" class="text-input" id="accounts-name-text" required>
+        </div>
+        <button type="submit" class="primary-button" id="create-transactions-button">Create Tranaction</button>
+      </form>
+      <a href="/index.html" class="secondary-button">Back to Home</a>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>

@@ -27,15 +27,15 @@ function renderTransactionsList(transactions) {
   };
 
   // Populates table with transactions data.
-  $("#transactions-list").append(tableTemplateString + "</table></div>");
+  $(".transactions-list").append(tableTemplateString + "</table></div>");
 
   function transactionToHtml(transaction) {
     return (`
       <tr>
-          <td>${moment(transaction.createDate).format("MMM Do YYYY")}</td>
+          <td>${moment(transaction.createDate).format("MM/DD/YY")}</td>
           <td>${transaction.budgetsCategory}</td>
           <td>${transaction.payee}</td>
-          <td>${transaction.amount}</td>
+          <td class="currency">$${transaction.amount}</td>
           <td>${transaction.accountsName}</td>
           <td><button id="button-update" data-id="${transaction.id}" data-feature="transaction">Update</button></td>
           <td><button id="button-delete" data-id="${transaction.id}" data-feature="transaction">Delete</button></td>
@@ -64,13 +64,13 @@ function renderBudgetsList(budgets) {
   };
 
   // Populates table with budgets data.
-  $("#budgets-list").append(tableTemplateString + "</table></div>");
+  $(".budgets-list").append(tableTemplateString + "</table></div>");
 
   function budgetToHtml(budget) {
     return (`
       <tr>
           <td>${budget.category}</td>
-          <td>${budget.amount}</td>
+          <td class="currency">$${budget.amount}</td>
           <td><button id="button-update" data-id="${budget.id}" data-feature="budget">Update</button></td>
           <td><button id="button-delete" data-id="${budget.id}" data-feature="budget">Delete</button></td>
       </tr>
@@ -97,13 +97,13 @@ function renderAccountsList(accounts) {
   };
 
   // Populates table with accounts data.
-  $("#accounts-list").append(tableTemplateString + "</table></div>");
+  $(".accounts-list").append(tableTemplateString + "</table></div>");
 
   function accountToHtml(account) {
     return (`
       <tr>
           <td>${account.name}</td>
-          <td>${account.balance}</td>
+          <td class="currency">$${account.balance}</td>
           <td><button id="button-update" data-id="${account.id}" data-feature="account">Update</button></td>
           <td><button id="button-delete" data-id="${account.id}" data-feature="account">Delete</button></td>
       </tr>

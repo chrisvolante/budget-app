@@ -7,8 +7,8 @@ const CACHE = window.CACHE_MODULE;
 $(document).ready(onPageLoad);
 
 function onPageLoad() {
-  $('#sign-up-form').submit(onSignUpSubmit);
-  $('#login-form').submit(onLoginSubmit);
+  $('#sign-up-form').submit('#create-account-button', onSignUpSubmit);
+  $('#login-form').submit('#login-button', onLoginSubmit);
 };
 
 function onSignUpSubmit(event) {
@@ -25,7 +25,7 @@ function onSignUpSubmit(event) {
     userData,
     onSuccess: user => {
       alert(`User "${user.username}" created, you may now log in.`);
-      window.open('/auth/login.html', '_self');
+      window.open('/', '_self');
     },
     onError: err => {
       alert('There was a problem processing your request, please try again later.');

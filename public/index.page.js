@@ -1,9 +1,9 @@
 let STATE = {};
 
 // Imports modules from utilities folder.
-const RENDER = window.RENDER_MODULE;
-const CACHE = window.CACHE_MODULE;
-const HTTP = window.HTTP_MODULE;
+// const RENDER = window.RENDER_MODULE;
+// const CACHE = window.CACHE_MODULE;
+// const HTTP = window.HTTP_MODULE;
 
 // Waits for page to load before running code.
 $(document).ready(onPageLoad);
@@ -27,22 +27,23 @@ function onPageLoad() {
   } 
 
   $('#logout-button').on('click', onLogoutButtonClick);
-  $('#transactions-list').on('click', '#button-delete', onDeleteButtonClick);
-  $('#transactions-list').on('click', '#button-update', onUpdateButtonClick);
-  $('#budgets-list').on('click', '#button-update', onUpdateButtonClick);
-  $('#budgets-list').on('click', '#button-delete', onDeleteButtonClick);
-  $('#accounts-list').on('click', '#button-update', onUpdateButtonClick);
-  $('#accounts-list').on('click', '#button-delete', onDeleteButtonClick);
+  $('.transactions-list').on('click', '#button-delete', onDeleteButtonClick);
+  $('.transactions-list').on('click', '#button-update', onUpdateButtonClick);
+  $('.budgets-list').on('click', '#button-update', onUpdateButtonClick);
+  $('.budgets-list').on('click', '#button-delete', onDeleteButtonClick);
+  $('.accounts-list').on('click', '#button-update', onUpdateButtonClick);
+  $('.accounts-list').on('click', '#button-delete', onDeleteButtonClick);
 };
 
 function updateAuthenticatedUI() {
   const authUser = CACHE.getAuthenticatedUserFromCache();
   if (authUser) {
       STATE.authUser = authUser;
-      $('#nav-greeting').html(`Welcome, ${authUser.name}`);
-      $('#auth-menu').removeAttr('hidden');
+      $('.default-menu').css('display', 'none');
+      $('.greeting').html(`Welcome, ${authUser.name}`);
+      $('.auth-menu').removeAttr('hidden');
   } else {
-      $('#default-menu').removeAttr('hidden');
+      $('.default-menu').css('display', 'flex');
   }
 };
 
@@ -50,7 +51,7 @@ function onLogoutButtonClick(event) {
   const confirmation = confirm('Are you sure you want to logout?');
   if (confirmation) {
     CACHE.deleteAuthenticatedUserFromCache();
-    window.open('/auth/login.html', '_self');
+    window.open('/', '_self');
   };
 };
 
