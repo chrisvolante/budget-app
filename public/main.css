@@ -123,6 +123,10 @@ h3 {
   padding: 0 0.8rem;
 }
 
+.demo-content .demo-user-text p{
+  
+}
+
 /* Showcase */
 .showcase {
   display: flex;
@@ -189,6 +193,10 @@ h3 {
 .secondary-button:hover {
   border-color: #ff7b39;
   color: #ff7b39;
+}
+
+#create-account-button {
+  margin-bottom: 1.2rem;
 }
 
 /* Auth Menu */
