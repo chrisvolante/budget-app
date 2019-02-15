@@ -7,6 +7,12 @@ Easily add Bank accounts, Credit Card accounts, and create Budgets to be respons
 Link: https://afternoon-anchorage-88698.herokuapp.com/
 
 Screenshots:
+![landing](/screenshots/budget-landing.png)
+![signup](/screenshots/budget-signup.png)
+![dashboard](/screenshots/budget-dashboard.png)
+![create-account](/screenshots/budget-createaccount.png)
+![create-budget](/screenshots/budget-createbudget.png)
+![create-transaction](/screenshots/budget-createtransaction.png)
 
 Technology used:
 * Node
