@@ -233,7 +233,7 @@ h3 {
 }
 
 /* Media Queries */
-@media (min-width: 1000px) {
+@media only screen and (min-width: 1000px) {
   .column-layout {
     display: flex;
   }
@@ -255,7 +255,7 @@ h3 {
 
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   body {
     overflow: auto;
   }
@@ -279,7 +279,7 @@ h3 {
   }
 }
 
-@media (max-width: 260px) {
+@media only screen and (max-width: 260px) {
   .secondary-button {
     font-size: 13px;
   }
