@@ -278,3 +278,9 @@ h3 {
     padding-top: 1 rem;
   }
 }
+
+@media (max-width: 250px) {
+  .secondary-button {
+    font-size: 13px;
+  }
+}
