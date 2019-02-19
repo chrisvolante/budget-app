@@ -279,7 +279,7 @@ h3 {
   }
 }
 
-@media (max-width: 250px) {
+@media (max-width: 260px) {
   .secondary-button {
     font-size: 13px;
   }
